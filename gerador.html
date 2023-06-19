@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gerador de UUIDs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .uuid-button {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #4caf50;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .uuid-button:hover {
+      background-color: #45a049;
+    }
+    p {
+      text-align: center;
+      font-size: 18px;
+      color: #555;
+      margin-top: 20px;
+    }
+    input {
+      font-weight: bold;
+      display: inline-block;
+      min-width: 340px; /* Defini um tamanho mínimo para 340px */
+      text-align: left;
+      border: 2px solid #4caf50; /* Adicionei a borda verde */
+      border-radius: 4px;
+      padding: 5px;
+      outline: none;
+    }
+  </style>
+  <script>
+    function generateUUID() {
+        var crypto = window.crypto || window.msCrypto;
+        
+        function randomDigit() {
+            if (crypto && crypto.getRandomValues) {
+                var rands = new Uint8Array(1);
+                crypto.getRandomValues(rands);
+                return (rands[0] % 16).toString(16);
+            } else {
+                return ((Math.random() * 16) | 0).toString(16);
+            }
+        }
+
+        return 'xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx'.replace(/x/g, randomDigit);
+    }
+
+    function displayUUID1() {
+        var uuid1 = generateUUID();
+        document.getElementById("uuid1-display").value = uuid1;
+    }
+
+    function displayUUID2() {
+        var uuid2 = generateUUID();
+        document.getElementById("uuid2-display").value = uuid2;
+    }
+
+    function displayUUIDs() {
+        displayUUID1();
+        displayUUID2();
+    }
+  </script>
+</head>
+<body>
+  <h1>Gerador de UUIDs</h1>
+  <div class="button-container">
+    <button class="uuid-button" onclick="displayUUID1()">Gerar UUID 1</button>
+    <button class="uuid-button" onclick="displayUUID2()">Gerar UUID 2</button>
+  </div>
+  <div class="button-container">
+    <button class="uuid-button" onclick="displayUUIDs()">Gerar Ambos</button>
+  </div>
+  <p>UUID 1: <input type="text" id="uuid1-display" readonly size="36"></p> <!-- Tamanho definido como 36 caracteres -->
+  <p>UUID 2: <input type="text" id="uuid2-display" readonly size="36"></p> <!-- Tamanho definido como 36 caracteres -->
+</body>
+</html>
